@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Static Host</title>
+  <style>
+    :root{
+      --bg:#0b1220; --card:#0f1724; --accent:#4f9ef9; --muted:#9aa6c2; --glass: rgba(255,255,255,0.03);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071025 0%, #07162b 100%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .wrap{width:100%;max-width:980px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#6bd3ff);display:flex;align-items:center;justify-content:center;color:#042033;font-weight:700;font-size:20px;box-shadow:0 6px 20px rgba(16,24,40,0.6)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 8px;font-size:15px}
+    .meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{padding:8px 10px;border-radius:8px;border:none;background:var(--glass);color:var(--accent);cursor:pointer;font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#6bd3ff);color:#042033}
+    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+    @media (max-width:520px){header{flex-direction:row;gap:12px}.logo{width:48px;height:48px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">H</div>
+      <div>
+        <h1>My Static Host</h1>
+        <p class="lead">A simple static downloads/index site — push to GitHub Pages to host.</p>
+      </div>
+    </header>
+
+    <section class="grid" id="fileGrid">
+      <!-- Cards will be injected here -->
+    </section>
+
+    <footer>
+      Hosted with GitHub Pages • Edit files in the repo to update
+    </footer>
+  </div>
+
+  <script>
+    // Example content — replace with your actual files/links
+    const files = [
+      { name: "Game_v1.zip", desc: "Windows build (x64)", url: "assets/Game_v1.zip", size: "120 MB" },
+      { name: "Game_mac.zip", desc: "macOS build", url: "assets/Game_mac.zip", size: "130 MB" },
+      { name: "Readme.txt", desc: "Instructions & credits", url: "assets/Readme.txt", size: "4 KB" },
+      { name: "Patch_1.1.zip", desc: "Bug fixes", url: "assets/Patch_1.1.zip", size: "20 MB" }
+    ];
+
+    const grid = document.getElementById('fileGrid');
+    files.forEach(f=>{
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${f.name}</h3>
+        <div class="meta">${f.desc} • ${f.size}</div>
+        <div class="actions">
+          <a class="btn primary" href="${f.url}" download>Download</a>
+          <a class="btn" href="${f.url}" target="_blank">Open</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
