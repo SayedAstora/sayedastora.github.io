@@ -74,13 +74,10 @@ jobs:
           s=p.read_text()
           s=s.replace('PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack','متجر سيد أسطورة | GoldHEN 9.00 - 14.02')
           s=s.replace('Only for PS4 with Firmware 5.05 and 7.00 to 14.02','افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02')
-          start=s.index("        if (fwNum == 5.05 || fwNum == 5.07) {")
-          end=s.index("        else if (fwNum >= 9.00 && fwNum <= 9.60) {", start)
-          s=s[:start]+s[end+1:]
-          start=s.index("        if (fwNum == 5.05 || fwNum == 5.07) {", s.index("    } else {"))
-          end=s.index("        else if (fwNum >= 9.00 && fwNum <= 9.60) {", start)
-          s=s[:start]+s[end+1:]
-          s=s.replace('Loading GoldHEN v2.4b18.14... Please Wait','جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...')
+          s=s.replace("if (fwNum == 5.05 || fwNum == 5.07)", "if (false)")
+          s=s.replace("else if (fwNum >= 7.00 && fwNum <= 8.52)", "else if (false)")
+          s=s.replace("Only for PS4 with Firmware 5.05 and 7.00 to 14.02","افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02")
+          s=s.replace("Loading GoldHEN v2.4b18.14... Please Wait","جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...")
           p.write_text(s)
           PY
       - name: Configure Pages
