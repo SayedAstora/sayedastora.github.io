@@ -1,0 +1,91 @@
+name: Build and deploy PS4 host
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download original GamerHack host
+        run: |
+          curl -L --fail https://github.com/GamerHack/GamerHack.github.io/archive/refs/heads/main.zip -o /tmp/host.zip
+          mkdir /tmp/host
+          unzip -q /tmp/host.zip -d /tmp/host
+          cp -a /tmp/host/GamerHack.github.io-main/. "$GITHUB_WORKSPACE/"
+      - name: Apply Sayed Astora customization
+        run: |
+          cat > index.html <<'HTML'
+          <!doctype html>
+          <html lang="ar" dir="rtl">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="theme-color" content="#090b12">
+            <title>متجر سيد أسطورة | PS4 Host</title>
+            <link rel="stylesheet" href="store.css">
+          </head>
+          <body>
+            <main class="page">
+              <header class="brand">
+                <img class="logo" src="logo.jpg" alt="شعار متجر سيد أسطورة" onerror="this.style.display='none'">
+                <div class="brand-copy">
+                  <p class="eyebrow">PS4 EXPLOIT HOST</p>
+                  <h1>متجر سيد أسطورة</h1>
+                  <p>منصة تفعيل GoldHEN لأجهزة PlayStation 4</p>
+                </div>
+              </header>
+              <section class="panel">
+                <span class="status"><i></i> الكشف التلقائي عن إصدار النظام</span>
+                <h2>اختر التفعيل التلقائي</h2>
+                <p>الموقع مخصص لإصدارات النظام المدعومة من 9.00 إلى 14.02.</p>
+                <a class="launch" href="g2all/index.html">بدء التفعيل التلقائي</a>
+                <p class="note">افتح الموقع من متصفح PS4 واتركه يحدد المسار المناسب لإصدار جهازك.</p>
+              </section>
+              <footer>
+                <p>صلاح الدين – بلد</p>
+                <a href="tel:07824961985">07824961985</a>
+                <p class="small">متجر سيد أسطورة</p>
+              </footer>
+            </main>
+          </body>
+          </html>
+          HTML
+          cat > store.css <<'CSS'
+          *{box-sizing:border-box}html{min-height:100%;background:#080a10;color:#f6f6f8;font-family:Arial,Tahoma,sans-serif}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#5a1018 0,#171018 38%,#080a10 76%);display:flex;align-items:center;justify-content:center;padding:28px 16px}.page{width:min(760px,100%);text-align:center}.brand{display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:28px}.logo{width:min(310px,75vw);height:auto;max-height:310px;object-fit:contain;border-radius:18px;filter:drop-shadow(0 12px 35px #000)}.brand-copy h1{font-size:clamp(30px,7vw,48px);margin:8px 0;color:#fff}.brand-copy p{color:#c9c9ce;margin:8px 0}.eyebrow{letter-spacing:3px;color:#ff3939!important;font-weight:bold;font-size:13px}.panel{background:#141720eF;border:1px solid #ffffff20;border-radius:22px;padding:30px 22px;box-shadow:0 20px 70px #0008}.status{display:inline-flex;align-items:center;gap:9px;color:#a8f0bd;font-size:14px}.status i{width:9px;height:9px;border-radius:50%;background:#40d878;box-shadow:0 0 12px #40d878}.panel h2{font-size:26px;margin:20px 0 12px}.panel p{color:#c7c8ce;line-height:1.8}.launch{display:block;max-width:390px;margin:25px auto 15px;padding:17px 20px;border-radius:12px;background:linear-gradient(110deg,#b20f1e,#f02b32);color:white;text-decoration:none;font-size:21px;font-weight:bold;box-shadow:0 8px 28px #b20f1e55}.launch:active{transform:scale(.98)}.note{font-size:13px}footer{margin-top:26px;color:#c6c6cc;line-height:1.8}footer a{color:#ff6868;text-decoration:none;font-weight:bold}.small{font-size:12px;color:#858791}@media(min-width:700px){.brand{flex-direction:row;text-align:right;justify-content:center}.logo{width:230px;height:230px}.brand-copy{max-width:420px}}
+          CSS
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('g2all/index.html')
+          s=p.read_text()
+          s=s.replace('PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack','متجر سيد أسطورة | GoldHEN 9.00 - 14.02')
+          s=s.replace('Only for PS4 with Firmware 5.05 and 7.00 to 14.02','افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02')
+          start=s.index("        if (fwNum == 5.05 || fwNum == 5.07) {")
+          end=s.index("        else if (fwNum >= 9.00 && fwNum <= 9.60) {", start)
+          s=s[:start]+s[end+1:]
+          start=s.index("        if (fwNum == 5.05 || fwNum == 5.07) {", s.index("    } else {"))
+          end=s.index("        else if (fwNum >= 9.00 && fwNum <= 9.60) {", start)
+          s=s[:start]+s[end+1:]
+          s=s.replace('Loading GoldHEN v2.4b18.14... Please Wait','جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...')
+          p.write_text(s)
+          PY
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4
