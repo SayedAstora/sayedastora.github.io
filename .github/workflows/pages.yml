@@ -1,6 +1,6 @@
 name: Build and deploy PS4 host
 # A fresh push run avoids duplicate Pages artifacts left by a previous retry.
-run-name: Fresh full deployment
+run-name: Fresh full deployment - single artifact
 
 on:
   push:
