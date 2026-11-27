@@ -46,7 +46,7 @@ jobs:
           import re
           p = Path('g2all/index.html')
           s = p.read_text()
-          s, n = re.subn(r'<h1\\b[^>]*>.*?Special\\s+Thanks\\s+to:.*?</h1>', '', s, flags=re.I|re.S)
+          s, n = re.subn(r'<h1\b[^>]*>.*?Special\s+Thanks\s+to:.*?</h1>', '', s, flags=re.I|re.S)
           print(f'Removed complete Special Thanks heading blocks: {n}')
           p.write_text(s)
           if 'ChendoChap' in s or 'Kameleonre_' in s or 'SiSTR0 Abc' in s:
