@@ -114,6 +114,7 @@ jobs:
               page = html.read_text(errors='ignore')
               page = page.replace(old_heading, new_heading)
               page = page.replace('GamerHack', 'متجر سيد أسطورة')
+              page = page.replace('window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";', 'window.msgs.style.direction="rtl";window.msgs.style.textAlign="right";window.msgs.innerHTML="<b dir=\\"ltr\\">" + Percent + "%</b> - تثبيت التخزين المؤقت للعمل بدون إنترنت";')
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               # Show the full store image only on cache-installation screens and the final host page.
               if html.name in ('index.html', 'cache900.html', 'cachecss.html', 'cacheslopkit.html'):
