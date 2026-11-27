@@ -117,6 +117,7 @@ jobs:
               page = page.replace('GoldHEN is already loaded', 'GoldHEN مُفعّل بالفعل')
               page = page.replace('Cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
               page = page.replace('cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
+              page = page.replace('now close and re-open your browser', 'الآن أغلق المتصفح ثم أعد فتحه')
               page = page.replace('window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";', 'window.msgs.style.direction="rtl";window.msgs.style.textAlign="right";window.msgs.innerHTML="<b dir=\\"ltr\\">" + Percent + "%</b> - تثبيت التخزين المؤقت للعمل بدون إنترنت";')
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               # Show the full store image only on cache-installation screens and the final host page.
