@@ -116,6 +116,7 @@ jobs:
               page = html.read_text(errors='ignore')
               page = page.replace(old_heading, new_heading)
               page = page.replace('GamerHack', 'متجر سيد أسطورة')
+              page = re.sub(r'Installing\s+Offline\s+Cache\s*:?', 'تثبيت التخزين المؤقت للعمل بدون إنترنت', page, flags=re.I)
               page = page.replace('GoldHEN is already loaded', 'GoldHEN مُفعّل بالفعل')
               page = page.replace('Cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
               page = page.replace('cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
