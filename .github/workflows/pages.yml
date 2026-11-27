@@ -96,6 +96,7 @@ jobs:
           CSS
           python3 - <<'PY'
           from pathlib import Path
+          import re
           p=Path('g2all/index.html')
           s=p.read_text()
           s=s.replace('PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack','متجر سيد أسطورة | GoldHEN 9.00 - 14.02')
