@@ -1,4 +1,5 @@
 name: Build and deploy PS4 host
+run-name: Fresh full deployment
 
 on:
   push:
