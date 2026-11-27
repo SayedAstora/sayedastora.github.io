@@ -114,6 +114,7 @@ jobs:
               page = html.read_text(errors='ignore')
               page = page.replace(old_heading, new_heading)
               page = page.replace('GamerHack', 'متجر سيد أسطورة')
+              page = page.replace('GoldHEN is already loaded', 'GoldHEN مُفعّل بالفعل')
               page = page.replace('window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";', 'window.msgs.style.direction="rtl";window.msgs.style.textAlign="right";window.msgs.innerHTML="<b dir=\\"ltr\\">" + Percent + "%</b> - تثبيت التخزين المؤقت للعمل بدون إنترنت";')
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               # Show the full store image only on cache-installation screens and the final host page.
@@ -127,7 +128,7 @@ jobs:
           for manifest in Path('g2all').glob('*.manifest'):
               content = manifest.read_text(errors='ignore')
               content = re.sub(r'(?m)^# Sayed Astora cache revision .*$', '', content)
-              manifest.write_text(content.rstrip() + '\n# Sayed Astora cache revision 3\n')
+              manifest.write_text(content.rstrip() + '\n# Sayed Astora cache revision 4\n')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v6
