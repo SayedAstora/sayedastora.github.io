@@ -107,6 +107,18 @@ jobs:
           s=s.replace("Only for PS4 with Firmware 5.05 and 7.00 to 14.02","افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02")
           s=s.replace("Loading GoldHEN v2.4b18.14... Please Wait","جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...")
           p.write_text(s)
+          # Replace the GamerHack heading/title in every generated HTML page,
+          # including the separate cache-installation pages.
+          for html in Path('.').rglob('*.html'):
+              page = html.read_text(errors='ignore')
+              page = page.replace('PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack',
+                                  'متجر سيد أسطورة | GoldHEN 9.00 - 14.02')
+              page = re.sub(r'(<h1\\b[^>]*>)[^<]*GamerHack[^<]*(</h1>)',
+                            r'\\1متجر سيد أسطورة | GoldHEN 9.00 - 14.02\\2',
+                            page, flags=re.I)
+              html.write_text(page)
+              if 'PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack' in page:
+                  raise SystemExit(f'Old GamerHack heading remains in {html}')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
