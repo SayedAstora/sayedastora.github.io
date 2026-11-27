@@ -120,8 +120,8 @@ jobs:
               page = page.replace('Cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
               page = page.replace('cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
               page = page.replace('now close and re-open your browser', 'الآن أغلق المتصفح ثم أعد فتحه')
-              progress_js = """function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.style.cssText="width:100%;box-sizing:border-box;display:block;text-align:center;direction:rtl;margin-left:auto;margin-right:auto;font-size:30px";window.msgs.innerHTML='<span dir="rtl">تثبيت التخزين المؤقت للعمل بدون إنترنت</span> <bdi dir="ltr">' + Percent + '%</bdi>'; }"""
-              page, progress_count = re.subn(r'function\\s+DLProgress\\(e\\)\\s*\\{.*?\\}', lambda _: progress_js, page, count=1, flags=re.S)
+              progress_js = """function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.style.cssText="width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;direction:rtl;margin:0 auto;font-size:30px";window.msgs.innerHTML='<span dir="rtl">تثبيت التخزين المؤقت للعمل بدون إنترنت</span> <bdi dir="ltr">' + Percent + '%</bdi>'; }"""
+              page, progress_count = re.subn(r'function\s+DLProgress\(e\)\s*\{.*?\}', lambda _: progress_js, page, count=1, flags=re.S)
               if progress_count != 1:
                   raise SystemExit(f'Could not patch cache progress function in {html}')
 
