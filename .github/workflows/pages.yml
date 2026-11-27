@@ -18,6 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository assets
+        uses: actions/checkout@v4
       - name: Download original GamerHack host
         run: |
           curl -L --fail https://github.com/GamerHack/GamerHack.github.io/archive/refs/heads/main.zip -o /tmp/host.zip
@@ -68,7 +70,7 @@ jobs:
           <body>
             <main class="page">
               <header class="brand">
-                <img class="logo" src="logo.jpg" alt="شعار متجر سيد أسطورة">
+                <img class="logo" src="sayed-astora-fullscreen.jpg" alt="متجر سيد أسطورة">
                 <div class="brand-copy">
                   <p class="eyebrow">PS4 EXPLOIT HOST</p>
                   <h1>متجر سيد أسطورة</h1>
@@ -92,7 +94,7 @@ jobs:
           </html>
           HTML
           cat > store.css <<'CSS'
-          *{box-sizing:border-box}html{min-height:100%;background:#080a10;color:#f6f6f8;font-family:Arial,Tahoma,sans-serif}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#5a1018 0,#171018 38%,#080a10 76%);display:flex;align-items:center;justify-content:center;padding:28px 16px}.page{width:min(760px,100%);text-align:center}.brand{display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:28px}.logo{width:min(310px,75vw);height:auto;max-height:310px;object-fit:contain;border-radius:18px;filter:drop-shadow(0 12px 35px #000)}.brand-copy h1{font-size:clamp(30px,7vw,48px);margin:8px 0;color:#fff}.brand-copy p{color:#c9c9ce;margin:8px 0}.eyebrow{letter-spacing:3px;color:#ff3939!important;font-weight:bold;font-size:13px}.panel{background:#141720eF;border:1px solid #ffffff20;border-radius:22px;padding:30px 22px;box-shadow:0 20px 70px #0008}.status{display:inline-flex;align-items:center;gap:9px;color:#a8f0bd;font-size:14px}.status i{width:9px;height:9px;border-radius:50%;background:#40d878;box-shadow:0 0 12px #40d878}.panel h2{font-size:26px;margin:20px 0 12px}.panel p{color:#c7c8ce;line-height:1.8}.launch{display:block;max-width:390px;margin:25px auto 15px;padding:17px 20px;border-radius:12px;background:linear-gradient(110deg,#b20f1e,#f02b32);color:white;text-decoration:none;font-size:21px;font-weight:bold;box-shadow:0 8px 28px #b20f1e55}.launch:active{transform:scale(.98)}.note{font-size:13px}footer{margin-top:26px;color:#c6c6cc;line-height:1.8}footer a{color:#ff6868;text-decoration:none;font-weight:bold}.small{font-size:12px;color:#858791}@media(min-width:700px){.brand{flex-direction:row;text-align:right;justify-content:center}.logo{width:230px;height:230px}.brand-copy{max-width:420px}}
+          *{box-sizing:border-box}html{min-height:100%;background:#080a10;color:#f6f6f8;font-family:Arial,Tahoma,sans-serif}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#5a1018 0,#171018 38%,#080a10 76%);display:flex;align-items:center;justify-content:center;padding:28px 16px}.page{width:min(760px,100%);text-align:center}.brand{display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:28px}.logo{display:block;width:100%;max-width:760px;height:auto;max-height:none;object-fit:contain;border-radius:18px;filter:drop-shadow(0 12px 35px #000)}.brand-copy h1{font-size:clamp(30px,7vw,48px);margin:8px 0;color:#fff}.brand-copy p{color:#c9c9ce;margin:8px 0}.eyebrow{letter-spacing:3px;color:#ff3939!important;font-weight:bold;font-size:13px}.panel{background:#141720eF;border:1px solid #ffffff20;border-radius:22px;padding:30px 22px;box-shadow:0 20px 70px #0008}.status{display:inline-flex;align-items:center;gap:9px;color:#a8f0bd;font-size:14px}.status i{width:9px;height:9px;border-radius:50%;background:#40d878;box-shadow:0 0 12px #40d878}.panel h2{font-size:26px;margin:20px 0 12px}.panel p{color:#c7c8ce;line-height:1.8}.launch{display:block;max-width:390px;margin:25px auto 15px;padding:17px 20px;border-radius:12px;background:linear-gradient(110deg,#b20f1e,#f02b32);color:white;text-decoration:none;font-size:21px;font-weight:bold;box-shadow:0 8px 28px #b20f1e55}.launch:active{transform:scale(.98)}.note{font-size:13px}footer{margin-top:26px;color:#c6c6cc;line-height:1.8}footer a{color:#ff6868;text-decoration:none;font-weight:bold}.small{font-size:12px;color:#858791}@media(min-width:700px){.brand{flex-direction:column;text-align:center;justify-content:center}.logo{width:100%;max-width:760px;height:auto}.brand-copy{max-width:100%}}
           CSS
           python3 - <<'PY'
           from pathlib import Path
