@@ -128,11 +128,21 @@ jobs:
               html.write_text(page)
               if old_heading in page or 'Special Thanks to:' in page or 'GamerHack' in page:
                   raise SystemExit(f'Old branding or credits remain in {html}')
+          # Add the Arabic Home-button instruction below the final GoldHEN status.
+          for js_path in (Path('g2all/css/main.js'), Path('g2all/slopkit/jb.js')):
+              if not js_path.exists():
+                  continue
+              js = js_path.read_text(errors='ignore')
+              js = js.replace('"GoldHEN v2.4b18.14 Loaded ..."', '`GoldHEN v2.4b18.14 Loaded ...<div dir="rtl" style="margin-top:10px;line-height:1.8">اخرج من زر الهوم<br>الذي يكون في منتصف اليد</div>`')
+              js = js.replace('"GoldHEN is Already Loaded ..."', '`GoldHEN is Already Loaded ...<div dir="rtl" style="margin-top:10px;line-height:1.8">اخرج من زر الهوم<br>الذي يكون في منتصف اليد</div>`')
+              js_path.write_text(js)
+              if 'اخرج من زر الهوم' not in js or 'الذي يكون في منتصف اليد' not in js:
+                  raise SystemExit(f'Arabic Home instruction was not applied to {js_path}')
           # Change each AppCache manifest version to force PS4 to refresh cached pages.
           for manifest in Path('g2all').glob('*.manifest'):
               content = manifest.read_text(errors='ignore')
               content = re.sub(r'(?m)^# Sayed Astora cache revision .*$', '', content)
-              manifest.write_text(content.rstrip() + '\n# Sayed Astora cache revision 5\n')
+              manifest.write_text(content.rstrip() + '\n# Sayed Astora cache revision 6\n')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v6
