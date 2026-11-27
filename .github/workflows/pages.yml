@@ -148,7 +148,11 @@ jobs:
           # Change each AppCache manifest version to force PS4 to refresh cached pages.
           for manifest in Path('g2all').glob('*.manifest'):
               content = manifest.read_text(errors='ignore')
-              content = re.sub(r'(?m)^# Sayed Astora cache revision .*
+              content = re.sub(r'(?m)^# Sayed Astora cache revision .*$', '', content)
+              # Cache the background image so it remains available after GoldHEN activation offline.
+              if '../sayed-astora-fullscreen.jpg' not in content:
+                  content = content.replace('CACHE:', 'CACHE:' + chr(10) + '../sayed-astora-fullscreen.jpg', 1)
+              manifest.write_text(content.rstrip() + chr(10) + '# Sayed Astora cache revision 9' + chr(10))
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v6
