@@ -104,8 +104,6 @@ jobs:
           s=s.replace('PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack','متجر سيد أسطورة | GoldHEN 9.00 - 14.02')
           s=re.sub(r'(<h1\b[^>]*>)[^<]*GamerHack[^<]*(</h1>)', r'\1متجر سيد أسطورة | GoldHEN 9.00 - 14.02\2', s, flags=re.I)
           s=s.replace('Only for PS4 with Firmware 5.05 and 7.00 to 14.02','افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02')
-          s=s.replace("if (fwNum == 5.05 || fwNum == 5.07)", "if (false)")
-          s=s.replace("else if (fwNum >= 7.00 && fwNum <= 8.52)", "else if (false)")
           s=s.replace("Only for PS4 with Firmware 5.05 and 7.00 to 14.02","افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02")
           s=s.replace("Loading GoldHEN v2.4b18.14... Please Wait","جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...")
           p.write_text(s)
@@ -119,7 +117,7 @@ jobs:
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               # Show the full store image only on cache-installation screens and the final host page.
               if html.name in ('index.html', 'cache900.html', 'cachecss.html', 'cacheslopkit.html'):
-                  image = '<div style="width:100%;max-width:900px;margin:18px auto;text-align:center;"><img src="../sayed-astora-fullscreen.jpg" alt="متجر سيد أسطورة" style="display:block;width:100%;height:auto;object-fit:contain;margin:0 auto;"></div>'
+                  image = '<style>html,body{background-image:none!important;background-color:transparent!important}body:before{content:"";position:fixed;inset:0;width:100vw;height:100vh;background-image:url("../sayed-astora-fullscreen.jpg");background-position:center center;background-size:cover;background-repeat:no-repeat;z-index:-1;pointer-events:none}</style>'
                   page = re.sub(r'(<body\b[^>]*>)', r'\1' + image, page, count=1, flags=re.I)
               html.write_text(page)
               if old_heading in page or 'Special Thanks to:' in page or 'GamerHack' in page:
