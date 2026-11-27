@@ -46,7 +46,9 @@ jobs:
           import re
           p = Path('g2all/index.html')
           s = p.read_text()
-          s, n = re.subn(r'<h1[^>]*>\\s*Special Thanks to:.*?</h1>', '', s, flags=re.I|re.S)
+          s, n = re.subn(r'<h1\\b[^>]*>[^<]*Special Thanks to:.*?</h1>', '', s, flags=re.I|re.S)
+          s, n2 = re.subn(r'<[^>]+>[^<]*Special Thanks to:.*?</[^>]+>', '', s, flags=re.I|re.S)
+          print(f'Removed credits heading blocks: {n}; additional blocks: {n2}')
           p.write_text(s)
           print(f'Removed credits blocks: {n}')
           PY
