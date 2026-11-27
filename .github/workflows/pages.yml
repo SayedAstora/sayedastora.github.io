@@ -105,7 +105,7 @@ jobs:
           s=re.sub(r'(<h1\b[^>]*>)[^<]*GamerHack[^<]*(</h1>)', r'\1متجر سيد أسطورة | GoldHEN 9.00 - 14.02\2', s, flags=re.I)
           s=s.replace('Only for PS4 with Firmware 5.05 and 7.00 to 14.02','افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02')
           s=s.replace("Only for PS4 with Firmware 5.05 and 7.00 to 14.02","افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02")
-          s=s.replace("Loading GoldHEN v2.4b18.14... Please Wait","جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...")
+          s=s.replace("Loading GoldHEN v2.4b18.14... Please Wait",'<span dir="rtl" style="unicode-bidi:plaintext">جاري تحديد إصدار النظام وتحميل مسار <bdi dir="ltr">GoldHEN</bdi> المناسب...</span>')
           p.write_text(s)
           # Customize only the PS4 host pages in g2all, including cache screens.
           old_heading = 'PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack'
