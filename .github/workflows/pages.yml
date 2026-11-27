@@ -117,7 +117,7 @@ jobs:
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               # Show the full store image only on cache-installation screens and the final host page.
               if html.name in ('index.html', 'cache900.html', 'cachecss.html', 'cacheslopkit.html'):
-                  image = '<style>html,body{background-image:none!important;background-color:transparent!important}body:before{content:"";position:fixed;inset:0;width:100vw;height:100vh;background-image:url("../sayed-astora-fullscreen.jpg");background-position:center center;background-size:cover;background-repeat:no-repeat;z-index:-1;pointer-events:none}</style>'
+                  image = '<style>html,body{background-image:none!important;background-color:transparent!important}body:before{content:"";position:fixed;inset:0;width:100vw;height:100vh;background-image:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.38)),url("../sayed-astora-fullscreen.jpg");background-position:center center;background-size:96% auto;background-repeat:no-repeat;background-color:#080a10;z-index:-1;pointer-events:none}</style>'
                   page = re.sub(r'(<body\b[^>]*>)', r'\1' + image, page, count=1, flags=re.I)
               html.write_text(page)
               if old_heading in page or 'Special Thanks to:' in page or 'GamerHack' in page:
