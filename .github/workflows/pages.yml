@@ -107,25 +107,22 @@ jobs:
           s=s.replace("Only for PS4 with Firmware 5.05 and 7.00 to 14.02","افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02")
           s=s.replace("Loading GoldHEN v2.4b18.14... Please Wait","جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...")
           p.write_text(s)
-          # Customize every HTML page, including all cache-installation screens.
+          # Customize only the PS4 host pages in g2all, including cache screens.
           old_heading = 'PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack'
           new_heading = 'متجر سيد أسطورة | GoldHEN 9.00 - 14.02'
-          for html in Path('.').rglob('*.html'):
+          for html in Path('g2all').rglob('*.html'):
               page = html.read_text(errors='ignore')
               page = page.replace(old_heading, new_heading)
-              page = re.sub(r'(<title\\b[^>]*>)[\\s\\S]*?GamerHack[\\s\\S]*?(</title>)',
-                            r'\\1' + new_heading + r'\\2', page, flags=re.I)
-              page = re.sub(r'<h1\\b[^>]*>[\\s\\S]*?Special\\s+Thanks\\s+to:.*?</h1>',
-                            '', page, flags=re.I)
-              page = re.sub(r'(<h1\\b[^>]*>)[\\s\\S]*?GamerHack[\\s\\S]*?(</h1>)',
-                            r'\\1' + new_heading + r'\\2', page, flags=re.I)
+              page = page.replace('GamerHack', 'متجر سيد أسطورة')
+              page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               html.write_text(page)
               if old_heading in page or 'Special Thanks to:' in page or 'GamerHack' in page:
                   raise SystemExit(f'Old branding or credits remain in {html}')
-          # Bump AppCache manifests so PS4 requests the updated cache pages.
-          for manifest in Path('.').rglob('*.manifest'):
+          # Change each AppCache manifest version to force PS4 to refresh cached pages.
+          for manifest in Path('g2all').glob('*.manifest'):
               content = manifest.read_text(errors='ignore')
-              manifest.write_text(content + '\\n# Sayed Astora cache revision 2\\n')
+              content = re.sub(r'(?m)^# Sayed Astora cache revision .*$', '', content)
+              manifest.write_text(content.rstrip() + '\n# Sayed Astora cache revision 3\n')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
