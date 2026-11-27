@@ -130,7 +130,7 @@ jobs:
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               # Show the full store image only on cache-installation screens and the final host page.
               if html.name in ('index.html', 'cache900.html', 'cachecss.html', 'cacheslopkit.html'):
-                  image = '<style>html,body{background:#080a10!important}body{position:relative;isolation:isolate}body:before{content:"";position:fixed;inset:-28px;background-image:linear-gradient(rgba(0,0,0,.48),rgba(0,0,0,.48)),url("../sayed-astora-fullscreen.jpg");background-position:center;background-size:cover;background-repeat:no-repeat;filter:blur(24px) brightness(.72) saturate(1.35);transform:scale(1.06);z-index:0;pointer-events:none}body:after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,.50),rgba(0,0,0,.50)),url("../sayed-astora-fullscreen.jpg");background-position:center center;background-size:contain;background-repeat:no-repeat;z-index:1;pointer-events:none}body>*{position:relative;z-index:2}</style>'
+                  image = '<style>html,body{background:#080a10!important}body{position:relative;isolation:isolate}body:before{content:"";position:fixed;inset:-28px;background-image:linear-gradient(rgba(0,0,0,.48),rgba(0,0,0,.48)),url("/sayed-astora-fullscreen.jpg");background-position:center;background-size:cover;background-repeat:no-repeat;filter:blur(24px) brightness(.72) saturate(1.35);transform:scale(1.06);z-index:0;pointer-events:none}body:after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,.50),rgba(0,0,0,.50)),url("/sayed-astora-fullscreen.jpg");background-position:center center;background-size:contain;background-repeat:no-repeat;z-index:1;pointer-events:none}body>*{position:relative;z-index:2}</style>'
                   page = re.sub(r'(<body\b[^>]*>)', r'\1' + image, page, count=1, flags=re.I)
               html.write_text(page)
               if old_heading in page or 'Special Thanks to:' in page or 'GamerHack' in page:
@@ -149,7 +149,7 @@ jobs:
           for manifest in Path('g2all').glob('*.manifest'):
               content = manifest.read_text(errors='ignore')
               content = re.sub(r'(?m)^# Sayed Astora cache revision .*$', '', content)
-              manifest.write_text(content.rstrip() + '\n# Sayed Astora cache revision 6\n')
+              manifest.write_text(content.rstrip() + '\n# Sayed Astora cache revision 7\n')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v6
