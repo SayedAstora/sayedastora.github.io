@@ -107,18 +107,25 @@ jobs:
           s=s.replace("Only for PS4 with Firmware 5.05 and 7.00 to 14.02","افتح هذا الموقع من جهاز PS4 بإصدار مدعوم من 9.00 إلى 14.02")
           s=s.replace("Loading GoldHEN v2.4b18.14... Please Wait","جاري تحديد إصدار النظام وتحميل مسار GoldHEN المناسب...")
           p.write_text(s)
-          # Replace the GamerHack heading/title in every generated HTML page,
-          # including the separate cache-installation pages.
+          # Customize every HTML page, including all cache-installation screens.
+          old_heading = 'PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack'
+          new_heading = 'متجر سيد أسطورة | GoldHEN 9.00 - 14.02'
           for html in Path('.').rglob('*.html'):
               page = html.read_text(errors='ignore')
-              page = page.replace('PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack',
-                                  'متجر سيد أسطورة | GoldHEN 9.00 - 14.02')
-              page = re.sub(r'(<h1\\b[^>]*>)[^<]*GamerHack[^<]*(</h1>)',
-                            r'\\1متجر سيد أسطورة | GoldHEN 9.00 - 14.02\\2',
-                            page, flags=re.I)
+              page = page.replace(old_heading, new_heading)
+              page = re.sub(r'(<title\\b[^>]*>)[\\s\\S]*?GamerHack[\\s\\S]*?(</title>)',
+                            r'\\1' + new_heading + r'\\2', page, flags=re.I)
+              page = re.sub(r'<h1\\b[^>]*>[\\s\\S]*?Special\\s+Thanks\\s+to:.*?</h1>',
+                            '', page, flags=re.I)
+              page = re.sub(r'(<h1\\b[^>]*>)[\\s\\S]*?GamerHack[\\s\\S]*?(</h1>)',
+                            r'\\1' + new_heading + r'\\2', page, flags=re.I)
               html.write_text(page)
-              if 'PS4 [5.05] 7.00 - 14.02 FW GoldHEN Host by GamerHack' in page:
-                  raise SystemExit(f'Old GamerHack heading remains in {html}')
+              if old_heading in page or 'Special Thanks to:' in page or 'GamerHack' in page:
+                  raise SystemExit(f'Old branding or credits remain in {html}')
+          # Bump AppCache manifests so PS4 requests the updated cache pages.
+          for manifest in Path('.').rglob('*.manifest'):
+              content = manifest.read_text(errors='ignore')
+              manifest.write_text(content + '\\n# Sayed Astora cache revision 2\\n')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
