@@ -140,8 +140,8 @@ jobs:
               if not js_path.exists():
                   continue
               js = js_path.read_text(errors='ignore')
-              js = js.replace('"GoldHEN v2.4b18.14 Loaded ..."', '`GoldHEN v2.4b18.14 Loaded ...<div dir="rtl" style="margin-top:10px;line-height:1.8">تم تفعيل التعديل بنجاح<br>اخرج من زر الهوم<br>الذي يكون في منتصف اليد<br>متجر سيد أسطورة - قضاء بلد<br>واتس اب رسائل فقط - 07824961985</div>`')
-              js = js.replace('"GoldHEN is Already Loaded ..."', '`GoldHEN is Already Loaded ...<div dir="rtl" style="margin-top:10px;line-height:1.8">تم تفعيل التعديل بنجاح<br>اخرج من زر الهوم<br>الذي يكون في منتصف اليد<br>متجر سيد أسطورة - قضاء بلد<br>واتس اب رسائل فقط - 07824961985</div>`')
+              js = js.replace('"GoldHEN v2.4b18.14 Loaded ..."', '`GoldHEN v2.4b18.14 Loaded ...<div dir="rtl" style="margin-top:10px;line-height:1.8">تم تفعيل التعديل بنجاح<br>اخرج من زر الهوم<br>الذي يكون في منتصف اليد<br>متجر سيد أسطورة - صلاح الدين - قضاء بلد<br>واتس اب رسائل فقط - 07824961985</div>`')
+              js = js.replace('"GoldHEN is Already Loaded ..."', '`GoldHEN is Already Loaded ...<div dir="rtl" style="margin-top:10px;line-height:1.8">تم تفعيل التعديل بنجاح<br>اخرج من زر الهوم<br>الذي يكون في منتصف اليد<br>متجر سيد أسطورة - صلاح الدين - قضاء بلد<br>واتس اب رسائل فقط - 07824961985</div>`')
               js_path.write_text(js)
               if 'اخرج من زر الهوم' not in js or 'الذي يكون في منتصف اليد' not in js:
                   raise SystemExit(f'Arabic Home instruction was not applied to {js_path}')
