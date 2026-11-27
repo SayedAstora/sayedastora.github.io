@@ -70,7 +70,7 @@ jobs:
           <body>
             <main class="page">
               <header class="brand">
-                <img class="logo" src="sayed-astora-fullscreen.jpg" alt="متجر سيد أسطورة">
+                
                 <div class="brand-copy">
                   <p class="eyebrow">PS4 EXPLOIT HOST</p>
                   <h1>متجر سيد أسطورة</h1>
@@ -117,6 +117,10 @@ jobs:
               page = page.replace(old_heading, new_heading)
               page = page.replace('GamerHack', 'متجر سيد أسطورة')
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
+              # Show the full store image only on cache-installation screens and the final host page.
+              if html.name in ('index.html', 'cache900.html', 'cachecss.html', 'cacheslopkit.html'):
+                  image = '<div style="width:100%;max-width:900px;margin:18px auto;text-align:center;"><img src="../sayed-astora-fullscreen.jpg" alt="متجر سيد أسطورة" style="display:block;width:100%;height:auto;object-fit:contain;margin:0 auto;"></div>'
+                  page = re.sub(r'(<body\\b[^>]*>)', r'\\1' + image, page, count=1, flags=re.I)
               html.write_text(page)
               if old_heading in page or 'Special Thanks to:' in page or 'GamerHack' in page:
                   raise SystemExit(f'Old branding or credits remain in {html}')
