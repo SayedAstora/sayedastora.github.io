@@ -118,8 +118,7 @@ jobs:
               page = page.replace('GamerHack', 'متجر سيد أسطورة')
               page = re.sub(r'Installing\s+Offline\s+Cache\s*:?', 'تثبيت التخزين المؤقت للعمل بدون إنترنت', page, flags=re.I)
               page = page.replace('GoldHEN is already loaded', 'GoldHEN مُفعّل بالفعل')
-              page = page.replace('Cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
-              page = page.replace('cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
+              page = re.sub(r'cache\\s+installed\\s+successfully[.!]?', 'تم تثبيت التخزين المؤقت بنجاح', page, flags=re.I)
               page = re.sub(r'now\\s+close\\s+and\\s+re-?open\\s+your\\s+browser', 'الآن أغلق المتصفح ثم أعد فتحه', page, flags=re.I)
               page = re.sub(r'close\\s+and\\s+re-?open\\s+your\\s+browser', 'أغلق المتصفح ثم أعد فتحه', page, flags=re.I)
               progress_js = """function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.style.cssText="width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;direction:rtl;margin:0 auto;font-size:30px";window.msgs.innerHTML='<span dir="rtl">تثبيت التخزين المؤقت للعمل بدون إنترنت</span> <bdi dir="ltr">' + Percent + '%</bdi>'; }"""
