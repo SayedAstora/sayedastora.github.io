@@ -120,7 +120,7 @@ jobs:
               page = page.replace('Cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
               page = page.replace('cache installed successfully', 'تم تثبيت التخزين المؤقت بنجاح')
               page = page.replace('now close and re-open your browser', 'الآن أغلق المتصفح ثم أعد فتحه')
-              page = page.replace('window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";', 'window.msgs.style.direction="rtl";window.msgs.style.textAlign="right";window.msgs.innerHTML="<b dir=\\"ltr\\">" + Percent + "%</b> - تثبيت التخزين المؤقت للعمل بدون إنترنت";')
+              page = page.replace('window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";', 'window.msgs.style.cssText += ";width:100%;box-sizing:border-box;display:flex;justify-content:center;align-items:center;gap:8px;text-align:center;direction:ltr;margin-left:auto;margin-right:auto";window.msgs.innerHTML="<span dir=\\\"rtl\\\">تثبيت التخزين المؤقت للعمل بدون إنترنت</span><b dir=\\\"ltr\\\">" + Percent + "%</b>";')
               page = re.sub(r'<h1\b[^>]*>[^<]*Special\s+Thanks\s+to:.*?</h1>', '', page, flags=re.I|re.S)
               # Show the full store image only on cache-installation screens and the final host page.
               if html.name in ('index.html', 'cache900.html', 'cachecss.html', 'cacheslopkit.html'):
